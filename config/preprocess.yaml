@@ -1,0 +1,30 @@
+dataset_type: 'dataset_mmsr'  # dataset_cf/dataset_sr/dataset_mmsr
+
+# frequently use
+filter_strategy: 'core'  # no/core/user; core: would iteractively filter users and items; user: would filter once
+train_test_strategy: 'ratio'  # time-based/ratio; leave-one-out: only left one item for testing; time-based: based on timestamp, 一刀切; ratio: user-based ratio
+core: 5  # <user/item_core would be droped
+
+max_length: 50  # only recent max_length items will be kept in the input sequence
+
+## basic
+rating_threshold: 0  # <rating_threshold would be droped
+split_ratio: 0.2
+
+## dataset_mmsr
+image_cluster_num: 20  # node number of images
+text_cluster_num: 20  # node number of text
+link_k: 1  # how many images/text linked with a item
+cluster_method: 'kmeans'  # kmeans/gmm
+
+image_extractor: 'resnet18' # resnet(default50)/resnet18/resnet34/swin_t/swin_s
+text_extractor: 't5' # opt125m/opt350m/t5/t5large/chatglm/llama
+
+# fro process data, if source==raw, then 1000 and 512
+source: 'ae'
+image_dimension: 128  # for pca
+text_dimension: 128  # for pca
+
+
+## other
+rewrite: True  # True: if the file exsit, still re-run

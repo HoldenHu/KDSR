@@ -1,0 +1,61 @@
+## model config
+embedding_size: 128
+aggregator: hete_attention  # rgat/kv_attention/hete_attention     gcn/graphsage/gat
+alpha: 0.1 # Alpha for the leaky_relu
+
+auxiliary_info: ['pos']
+
+max_relid: 10
+n_layer: 1
+fusion_type: asy_mask # fusion between hete and homo; cat/gate/asy_mask
+dropout_output: 0.4 
+dropout_atten: 0.2
+
+seq_pooling: last_sum # last/last_attention/attention/last_sum
+last_n: 2
+modality_prediction: False # whether add modality prediction multi-task # TODO: still not good
+
+loss_type: 'CE'
+
+# cor config
+freeze_feature: False
+use_CD: True
+use_CCA: False
+use_AT: False
+gamma: 2 # *gamma when epoch arrive schedule
+schedule: [5, 10]
+
+use_image_modality_encoder: '' # ''/'resnet18', 'resnet34', 'swin_t', 'swin_s'
+use_text_modality_encoder: '' # ''/'opt125m', 't5large', 'chatglm'
+
+quantization_method: 'kmeans' # kmeans/vq
+cor_type: 'cos' # cos/euc/dot/man
+cor_code_num: 50
+product_domain_D: 8
+tau: 1.5
+v_s_weight: 4
+v_c_weight: 0.5
+t_s_weight: 4
+t_c_weight: 0.5
+# v_s_weight: 2
+# v_c_weight: 0
+# t_s_weight: 2
+# t_c_weight: 0
+
+# dataset config
+dataset_type: dataset_mmsr
+
+# training config
+epoch: 100
+batch_size: 256
+lr: 0.001
+lr_dc: 0.0001 # learning rate decay
+lr_dc_step: 40 # the number of steps after which the learning rate decay
+l2: 0 # l2 penalty, [0, 1e-5, e-4]
+patience: 6 # num of epochs not update the best result, early stopping
+
+# eval config
+topk: [5,20]
+
+cuda_id: 0
+tune_parameters: False
